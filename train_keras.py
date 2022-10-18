@@ -23,7 +23,7 @@ batch_size = 64
 def get_img(df):
 
     cols = ['img_path', 'filename']
-    df['fullpath'] = df[cols].apply(lambda row: '/'.join(row.values.astype(str)), axis=1)
+    df['fullpath'] = f"{Path.home()}"+ df[cols].apply(lambda row: '/'.join(row.values.astype(str)), axis=1)
     img_path = df.fullpath.values.tolist()
 
     scores = df.mouse_score.values.tolist()
@@ -58,7 +58,7 @@ def load_and_preprocess_from_path_labels(path, label):
 
 if __name__ == "__main__":
 
-    main_path = f"{Path.home()}/Data/Mouse/new_csv/5fold/"
+    main_path = f"{Path.home()}/Data/Sample/"
 
     # getting the csv files
     ext = ('csv')
@@ -137,7 +137,7 @@ if __name__ == "__main__":
     # print(model.metrics_names)
     print(score[1]*100)
 
-    tfjs.converters.save_keras_model(model, f"{Path.home()}/Data/Mouse/keras_trained_vgg16/")
+    tfjs.converters.save_keras_model(model, f"{Path.home()}/Data/Sample/Result/")
 
     # serialize model to JSON
     model_json = model.to_json()
