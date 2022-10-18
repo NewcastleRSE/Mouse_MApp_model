@@ -16,7 +16,10 @@ Newcastle University
 
 ### Built With
 
-[Python=3.10.7](https://something.com)  
+[Python=3.10.7](https://www.python.org/downloads/)  
 
 ### How to use
-To be added
+For the tensorflow version (the model we used for the apps)
+
+[tensorflowjs=3.15.0](https://www.tensorflow.org/js/tutorials/setup)
+[keras=2.8.0 ](https://www.tensorflow.org/install)
