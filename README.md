@@ -24,3 +24,7 @@ For the tensorflow version (the model we used for the apps)
 [tensorflowjs=3.15.0](https://www.tensorflow.org/js/tutorials/setup)
 
 [keras=2.8.0 ](https://www.tensorflow.org/install)
+
+For the pytorch version, run `python train_pytorch.py --model alexnet`
+
+[pytorch=1.12.1](https://pytorch.org/)
