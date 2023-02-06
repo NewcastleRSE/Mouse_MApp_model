@@ -39,7 +39,7 @@ def get_img(df):
         elif i == 5.0:
             img_label.append(3)
         else:
-            print("OH BOY!!! LABELS BE BROKENZ")
+            print("Wrong label")
 
     return img_path, img_label
 
@@ -134,9 +134,10 @@ if __name__ == "__main__":
     )
 
     score = model.evaluate(test_dataset)
-    # print(model.metrics_names)
+    # score accuracy     
     print(score[1]*100)
-
+    
+    # convert the model to tfjs     
     tfjs.converters.save_keras_model(model, f"{Path.home()}/Data/Sample/Result/")
 
     # serialize model to JSON
