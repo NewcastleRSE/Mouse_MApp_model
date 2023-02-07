@@ -19,12 +19,14 @@ if __name__ == "__main__":
     main_path = "sample_data/"
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    model_ae = torch.jit.load("model/model_ae.pt")
+    model_ae = torch.load("model/model_ae.pt",
+                          map_location=torch.device("cpu"))
     model_ae.to(device)
     model_ae.eval()
     criterion = nn.MSELoss()
 
-    model_pred = torch.jit.load("model/model_pytorch_alexnet.pt")
+    model_pred = torch.load("model/model_pytorch_vgg19.pt",
+                            map_location=torch.device("cpu"))
     model_pred.to(device)
     model_pred.eval()
 
@@ -47,6 +49,7 @@ if __name__ == "__main__":
                     prob_softmax = torch.softmax(pred, dim=1)
                     _, standard_prediction = torch.max(prob_softmax, 1)
                     print(i)
-                    print("BCS:", standard_prediction.detach().cpu().numpy()[0] + 2)
+                    print(
+                        "BCS:", standard_prediction.detach().cpu().numpy()[0] + 2)
                 else:
                     print("please use a different image")
