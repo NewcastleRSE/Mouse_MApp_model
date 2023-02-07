@@ -19,6 +19,10 @@ Newcastle University
 [Python=3.10.7](https://www.python.org/downloads/)  
 
 ### How to use
+
+To run the inference, copy the model weight into model folder.
+Run ``` python src/inference_pytorch.py```
+
 For the tensorflow version (the model we used for the apps)
 
 [tensorflowjs=3.15.0](https://www.tensorflow.org/js/tutorials/setup)
