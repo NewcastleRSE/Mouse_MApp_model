@@ -88,7 +88,6 @@ def plot_error_matrix(cm, classes, cmap=plt.cm.Blues):
 
 
 def CCM(cnf_labels, cnf_predictions):
-
     class_names = ["2", "3", "4", "5"]
     cnf_matrix = confusion_matrix(cnf_labels, cnf_predictions)
     np.set_printoptions(precision=2)
@@ -201,7 +200,6 @@ def get_accuracy(actual, predicted):
 
 
 def train_class(trainloader, model):
-
     model.to(device)
 
     optimizer = optim.Adam(model.parameters(), lr=opt.lr)
@@ -239,7 +237,6 @@ def train_class(trainloader, model):
 
 
 def test_class(testloader, model):
-
     test_loss = 0
     accuracy = 0
     model.eval()
@@ -333,7 +330,6 @@ class MouseDataset(Dataset):
         return len(self.df)
 
     def __getitem__(self, idx):
-
         img_path = self.df["img_path"].iloc[idx]
         img_name = self.df["filename"].iloc[idx]
 
@@ -359,7 +355,6 @@ class MouseDataset(Dataset):
 
 
 if __name__ == "__main__":
-
     crop_size = 224
 
     flip = transforms.RandomHorizontalFlip()

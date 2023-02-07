@@ -1,7 +1,7 @@
 import os
 import keras
 import tensorflowjs as tfjs
-import tensorflow as tf 
+import tensorflow as tf
 from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.layers import Dropout
 from keras import models
@@ -10,20 +10,23 @@ import pandas as pd
 from pathlib import Path
 
 model = keras.applications.vgg16.VGG16()
-conv_base = VGG16(weights='imagenet',
+conv_base = VGG16(
+    weights="imagenet",
     include_top=False,
-    input_shape=[224,224,3],
-    )
+    input_shape=[224, 224, 3],
+)
 
 
 dropout = 0.4
 epoch = 100
 batch_size = 64
 
-def get_img(df):
 
-    cols = ['img_path', 'filename']
-    df['fullpath'] = f"{Path.home()}"+ df[cols].apply(lambda row: '/'.join(row.values.astype(str)), axis=1)
+def get_img(df):
+    cols = ["img_path", "filename"]
+    df["fullpath"] = f"{Path.home()}" + df[cols].apply(
+        lambda row: "/".join(row.values.astype(str)), axis=1
+    )
     img_path = df.fullpath.values.tolist()
 
     scores = df.mouse_score.values.tolist()
@@ -52,16 +55,16 @@ def load_and_preprocess_image(path, label):
     img_label = tf.one_hot(label, 4)
     return tf.image.resize(img, [img_width, img_height]), img_label
 
+
 def load_and_preprocess_from_path_labels(path, label):
     return load_and_preprocess_image(path, label)
 
 
 if __name__ == "__main__":
-
     main_path = f"{Path.home()}/Data/Sample/"
 
     # getting the csv files
-    ext = ('csv')
+    ext = "csv"
     count = 1
     df = []
     for subdir, dirs, files in os.walk(main_path + "train"):
@@ -76,7 +79,7 @@ if __name__ == "__main__":
                 count += 1
     train_df = df
 
-    ext = ('csv')
+    ext = "csv"
     count = 1
     df = []
     for subdir, dirs, files in os.walk(main_path + "test"):
@@ -105,15 +108,15 @@ if __name__ == "__main__":
     test_dataset = test_ds.map(load_and_preprocess_from_path_labels)
     test_dataset = test_dataset.batch(10)
 
-    # build the model 
+    # build the model
     model = models.Sequential()
     model.add(conv_base)
     model.add(Dropout(dropout))
     model.add(layers.Flatten())
     model.add(Dropout(dropout))
-    model.add(layers.Dense(128, activation='relu'))
+    model.add(layers.Dense(128, activation="relu"))
     model.add(Dropout(dropout))
-    model.add(layers.Dense(4, activation='softmax'))
+    model.add(layers.Dense(4, activation="softmax"))
 
     optimizer = tf.keras.optimizers.Adam(learning_rate=0.00001)
 
@@ -123,21 +126,21 @@ if __name__ == "__main__":
         metrics=["accuracy"],
     )
     model.summary()
-    
+
     # training
     model.fit(
         train_dataset,
         validation_data=test_dataset,
         epochs=epoch,
         batch_size=batch_size,
-        shuffle=True
+        shuffle=True,
     )
 
     score = model.evaluate(test_dataset)
-    # score accuracy     
-    print(score[1]*100)
-    
-    # convert the model to tfjs     
+    # score accuracy
+    print(score[1] * 100)
+
+    # convert the model to tfjs
     tfjs.converters.save_keras_model(model, f"{Path.home()}/Data/Sample/Result/")
 
     # serialize model to JSON
