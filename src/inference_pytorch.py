@@ -18,7 +18,8 @@ if __name__ == "__main__":
     main_path = "sample_data/"
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    model_ae = torch.jit.load("model/model_ae.pt", map_location=torch.device("cpu"))
+    model_ae = torch.jit.load(
+        "model/model_ae.pt", map_location=torch.device("cpu"))
     model_ae.to(device)
     model_ae.eval()
     criterion = nn.MSELoss()
@@ -42,12 +43,13 @@ if __name__ == "__main__":
 
                 loss_ae = criterion(img, recon).item()
 
-                if loss_ae < 0.0500:
+                if loss_ae < 0.1:
                     pred = model_pred(img)
                     prob_softmax = torch.softmax(pred, dim=1)
                     _, standard_prediction = torch.max(prob_softmax, 1)
                     print(i)
                     print(loss_ae)
-                    print("BCS:", standard_prediction.detach().cpu().numpy()[0] + 2)
+                    print(
+                        "BCS:", standard_prediction.detach().cpu().numpy()[0] + 2)
                 else:
                     print("please use a different image")
