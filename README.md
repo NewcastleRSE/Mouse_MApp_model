@@ -32,3 +32,7 @@ For the tensorflow version (the model we used for the apps)
 For the pytorch version, run `python train_pytorch.py --model alexnet`
 
 [pytorch=1.12.1](https://pytorch.org/)
+
+### Data
+For the images, please contact Matt Leach - ([matthew.leach@newcastle.ac.uk](mailto:matthew.leach@newcastle.ac.uk)).
+The csv files for this project can be found in [Mouse MApp] (https://newcastle.sharepoint.com/:f:/r/sites/rseteam/Shared%20Documents/General/Projects/Mouse%20MApp?csf=1&web=1&e=GOh8eo). The filename has been processed to remove the whitespace and characters such as `(` and `)`.
